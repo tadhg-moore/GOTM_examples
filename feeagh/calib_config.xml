@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../client/config.xsd">
+  <transports>
+    <transport type="sqlite" path="feeagh_calib_v3.db"/>
+  </transports>
+  <executable path="../bin/gotm.exe"/>
+  <setup path="."/>
+  <parameters>
+    <parameter file="gotm.yaml" variable="surface/fluxes/heat/scale_factor" minimum="0.8" maximum="1.2" />
+    <parameter file="gotm.yaml" variable="surface/meteo/swr/scale_factor"  minimum="0.8" maximum="1.2" />
+    <!--parameter file="gotm.yaml" variable="surface/meteo/u10/scale_factor" minimum="0.8" maximum="1.2"/>
+    <parameter file="gotm.yaml" variable="surface/meteo/v10/scale_factor" minimum="0.8" maximum="1.2"/-->
+    <parameter file="gotm.yaml" variable="turbulence/turb_param/k_min" minimum="1.4e-7" maximum="1e-4" logscale="True" />
+    <parameter file="gotm.yaml" variable="light_extinction/g1/constant_value" minimum="0.1" maximum="1.5" />
+    <parameter file="gotm.yaml" variable="light_extinction/g2/constant_value" minimum="1." maximum="15." />
+  </parameters>
+  <observations>
+    <variable source="./wtemp_dly_2010_2015.dat" modelpath="output.nc" modelvariable="temp" spinupyears="0"/>
+  </observations>
+  <extra_outputs>
+    <statistic name="correlation" expression="corrcoef(x,y)[0,1]"/>
+    <statistic name="rmse" expression="sqrt(mean((y-x)**2))"/>
+  </extra_outputs>
+</config>
