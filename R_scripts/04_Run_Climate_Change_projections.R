@@ -116,8 +116,14 @@ colnames(wtemp_hist)[2] <- 'surface'
 wtemp_hist$yday <- yday(wtemp_hist[,1])
 
 p1 <- ggplot(wtemp_hist, aes(yday, surface))+
-  stat_summary(geom = "line", fun.y = mean) +
-  stat_summary(geom = "ribbon", fun.data = mean_cl_normal, alpha = 0.3)+  theme_bw()
+  stat_summary(geom = "line", fun.y = mean, aes(colour = 'Historical')) +
+  stat_summary(geom = "ribbon", fun.data = mean_cl_normal, alpha = 0.3,
+               aes(fill = 'Historical'))+
+  ylab('Temperature (°C)')+
+  xlab('')+
+  ggtitle('Climatic Annual Surface Temperature')+
+  guides(colour = F, fill = guide_legend(title = 'Scenario'))+
+  theme_bw()
 p1
 
 
@@ -145,11 +151,15 @@ colnames(wtemp_rcp26)[2] <- 'surface'
 wtemp_rcp26$yday <- yday(wtemp_rcp26[,1])
 
 p2 <- ggplot(wtemp_hist, aes(yday, surface))+
-  stat_summary(geom = "line", fun.y = mean, aes(colour = 'Hist')) +
+  stat_summary(geom = "line", fun.y = mean, aes(colour = 'Historical')) +
   stat_summary(geom = "ribbon", fun.data = mean_cl_normal, alpha = 0.3,
-               aes(fill = 'Hist'))+
+               aes(fill = 'Historical'))+
   stat_summary(data = wtemp_rcp26, geom = "line", fun.y = mean, aes(colour = 'RCP2.6')) +
   stat_summary(data = wtemp_rcp26, geom = "ribbon", fun.data = mean_cl_normal, alpha = 0.3, aes(fill = 'RCP2.6'))+
+  ylab('Temperature (°C)')+
+  xlab('')+
+  ggtitle('Climatic Annual Surface Temperature')+
+  guides(colour = F, fill = guide_legend(title = 'Scenario'))+
   theme_bw()
 p2
 
@@ -178,9 +188,9 @@ colnames(wtemp_rcp60)[2] <- 'surface'
 wtemp_rcp60$yday <- yday(wtemp_rcp60[,1])
 
 p3 <- ggplot(wtemp_hist, aes(yday, surface))+
-  stat_summary(geom = "line", fun.y = mean, aes(colour = 'Hist')) +
+  stat_summary(geom = "line", fun.y = mean, aes(colour = 'Historical')) +
   stat_summary(geom = "ribbon", fun.data = mean_cl_normal, alpha = 0.3,
-               aes(fill = 'Hist'))+
+               aes(fill = 'Historical'))+
   stat_summary(data = wtemp_rcp26, geom = "line", fun.y = mean, aes(colour = 'RCP2.6')) +
   stat_summary(data = wtemp_rcp26, geom = "ribbon", fun.data = mean_cl_normal, alpha = 0.3, aes(fill = 'RCP2.6'))+
   stat_summary(data = wtemp_rcp60, geom = "line", fun.y = mean, aes(colour = 'RCP6.0')) +
